@@ -149,27 +149,30 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* 赤線より上：丸みのある写真パネル＋コピー */
+/* 写真は CSS background で敷き、コピー／CTA はその上に載せる。
+   （img の height:auto が絶対配置を崩し、写真と文字が縦積みになるのを避ける） */
 .hero-visual{
   position:relative;
   margin:0;
-  border-radius:0;
   overflow:hidden;
   text-align:center;
-  min-height:380px;
-}
-.hero-visual-photo{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 42%;
+  min-height:min(78vh,720px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#FFF8F0 url("../images/photos/hero-fv.jpg") center 42% / cover no-repeat;
 }
 .hero-visual::after{
-  content:"";position:absolute;inset:0;
+  content:"";
+  position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 70% at 50% 18%,rgba(255,252,248,.28),transparent 70%),
-    linear-gradient(180deg,rgba(255,252,248,.78) 0%,rgba(255,248,240,.70) 46%,rgba(255,246,234,.62) 100%);
+    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,246,234,.82) 100%);
   pointer-events:none;
 }
-.hero-visual>.wrap{position:relative;z-index:1;padding:42px 8px 36px;}
+.hero-visual>.wrap{
+  position:relative;z-index:1;
+  padding:48px 8px 40px;
+}
 .hero-catch{
   font-size:clamp(24px,4.4vw,42px);line-height:1.5;letter-spacing:.01em;color:var(--orange-deep);
 }
@@ -177,21 +180,9 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .hero-catch .mark{background:linear-gradient(transparent 60%,rgba(251,216,107,.85) 60%);}
 .hero-lead{margin:20px auto 0;max-width:40em;font-size:15.5px;color:var(--ink);}
 .hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;}
-.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,248,240,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
 .badge svg{width:15px;height:15px;color:var(--orange);}
-
-/* 赤線より下：白地のCTA〜次セクション手前 */
-.hero-cta{
-  position:relative;z-index:2;
-  background:#fff;text-align:center;
-  padding:28px 0 48px;
-}
-.hero-cta>.wrap{position:relative;z-index:1;}
-.hero-cta::after{
-  content:"";position:absolute;left:-8%;right:-8%;bottom:-46px;
-  height:94px;background:#fff;border-radius:50%;pointer-events:none;
-}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;}
 .hero-note{margin-top:16px;font-size:13px;color:var(--ink-2);}
 
 /* 写真コラージュ */
@@ -528,10 +519,8 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .worry-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
-  .hero-visual{min-height:300px;}
-  .hero-visual>.wrap{padding:32px 4px 28px;}
-  .hero-cta{padding:24px 0 40px;}
-  .hero-cta::after{bottom:-30px;height:62px;}
+  .hero-visual{min-height:min(86vh,720px);}
+  .hero-visual>.wrap{padding:36px 4px 32px;}
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
   .cph1{grid-column:1/8;grid-row:1;aspect-ratio:4/3;border-radius:0 28px 28px 0;transform:none;}
