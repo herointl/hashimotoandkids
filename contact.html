@@ -77,19 +77,21 @@
 
       <div class="rv">
         <!--
-          送信先：FormSubmit（https://formsubmit.co/）経由で info@herointl.jp に送信、hashimoto@andkids.jp に CC。
-          JS が有効な場合は js/main.js が AJAX で送信し、この action は JS 無効時のフォールバックとして使われます。
+          送信先は info@herointl.jp と hashimoto@andkids.jp。
+          専用メーラー（herointl.jp/hashimoto-contact-submit.php）があればそれを使い、
+          なければ運営会社の contact-submit.php へ iframe で POST します。
         -->
-        <form class="form" data-contact-form action="https://formsubmit.co/info@herointl.jp" method="POST">
-          <input type="hidden" name="_subject" value="【＆kids橋本】サイトからのお問い合わせ・見学予約">
-          <input type="hidden" name="_cc" value="hashimoto@andkids.jp">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://hashimoto.andkids.jp/contact.html?sent=1">
-          <!-- スパム対策用ハニーポット（人間には見えません。入力されていたら送信は無視されます） -->
+        <form class="form" data-contact-form method="POST"
+          action="https://herointl.jp/contact-submit.php"
+          data-dedicated-url="https://herointl.jp/hashimoto-contact-submit.php"
+          data-gas-url="">
+          <input type="hidden" name="type" value="こども発達らぼ＆kids について">
+          <input type="hidden" name="company" value="＆kids橋本ホームページ">
+          <input type="hidden" name="body" data-mail-body value="＆kids橋本ホームページ（hashimoto.andkids.jp）からのお問い合わせです。">
+          <input type="hidden" name="email" data-mail-fallback value="hashimoto@andkids.jp">
           <div class="hp-field" aria-hidden="true">
-            <label for="f-honey">この欄は空のままにしてください</label>
-            <input type="text" id="f-honey" name="_honey" tabindex="-1" autocomplete="off">
+            <label for="f-website">この欄は空のままにしてください</label>
+            <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
           <p data-form-msg hidden class="note form-msg" role="status" aria-live="polite"></p>
@@ -106,7 +108,7 @@
 
           <div class="field">
             <label for="f-mail">メールアドレス<span class="opt">任意</span></label>
-            <input type="email" id="f-mail" name="email" autocomplete="email" placeholder="example@example.com">
+            <input type="email" id="f-mail" name="user_email" autocomplete="email" placeholder="example@example.com">
           </div>
 
           <div class="field">
@@ -147,6 +149,11 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="m3 6 9 7 9-7"/></svg>
             <span data-submit-label>この内容で送信する</span>
           </button>
+          <p class="form-alt-mail">
+            届かない場合は
+            <a data-mailto-link href="mailto:info@herointl.jp,hashimoto@andkids.jp?subject=%E3%80%90%EF%BC%86kids%E6%A9%8B%E6%9C%AC%E3%80%91%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%BB%E8%A6%8B%E5%AD%A6%E4%BA%88%E7%B4%84">メールアプリから info@herointl.jp と hashimoto@andkids.jp へ送る</a>
+            こともできます。
+          </p>
         </form>
       </div>
 

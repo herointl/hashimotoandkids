@@ -132,13 +132,12 @@
 
 ## 4. 実装メモ
 
-- **お問い合わせフォーム**（`contact.html`）は、静的サイト向けフォーム送信サービス [FormSubmit](https://formsubmit.co/) を使って実際にメール送信されます（サーバー不要・無料）。
-  - **送信先**：`info@herointl.jp`（宛先）／`hashimoto@andkids.jp`（CC）。変更する場合は `contact.html` の `<form action="https://formsubmit.co/…">` と `<input name="_cc">` を編集してください。
-  - **初回の有効化（必須）**：初めて送信されると、FormSubmit から `info@herointl.jp` へ「Activate Form」というタイトルの確認メールが届きます。メール内のボタンを1回クリックすると有効化され、以降の問い合わせが届くようになります（有効化前の送信内容は転送されません）。届かない場合は迷惑メールフォルダをご確認ください。
-  - **迷惑メール対策**：人には見えない「ハニーポット」欄（`_honey`）を設置しており、ボットが入力した送信は自動的に破棄されます。
-  - **返信**：利用者がメールアドレスを入力した場合、届いたメールにそのまま「返信」すると利用者宛てに送れます（Reply-To 設定済み）。
-  - **送信の流れ**：`js/main.js` が画面遷移なし（AJAX）で送信します。通信エラーなどで AJAX 送信ができなかった場合や JavaScript が無効な環境では、FormSubmit へ通常のフォーム送信で再試行し、完了後に `contact.html?sent=1` へ戻って完了メッセージを表示します。
-  - **メールアドレスの露出を避けたい場合**：有効化後に FormSubmit の管理画面で発行できるランダム文字列のエンドポイント（`https://formsubmit.co/xxxxxxxx`）を `action` に設定すると、HTML 上に宛先アドレスが表示されなくなります。
+- **お問い合わせフォーム**（`contact.html`）の送信先は `info@herointl.jp` と `hashimoto@andkids.jp` です。
+  - **両方に必ず届ける（推奨）**：`mailer/hashimoto-contact-submit.php` を運営会社サイトのドキュメントルートへアップロードし、`https://herointl.jp/hashimoto-contact-submit.php` で開けるようにしてください。フォームはまずこの URL へ送ります。
+  - **未設置時の予備**：専用PHPがまだ無いときは、運営会社の既存メーラー `https://herointl.jp/contact-submit.php` へ iframe で POST します（コーポレートお問い合わせと同じ受信箱）。
+  - **自動送信を確認できないとき**：「メールアプリから info@herointl.jp と hashimoto@andkids.jp へ送る」リンクから、本文入りのメールを開けます。
+  - **Google アプリスクリプトでも可**：`mailer/Code.gs` をウェブアプリとしてデプロイし、発行 URL を `contact.html` の `data-gas-url` に入れると同じ2アドレスへ送れます。
+  - **迷惑メール対策**：人には見えない「website」欄（ハニーポット）を置いています。
 - **地図**は Google マップの埋め込み（APIキー不要）です。番地まで正確なピンにしたい場合は、Google マップで施設を検索し「共有 → 地図を埋め込む」で得られる URL に差し替えてください。
 - **お知らせ**（`news.html`）は WordPress の「投稿」で運用する想定です。カテゴリーは「お知らせ／空き状況／行事／重要」の4つを想定し、トップページには最新3件を自動表示します。
 - **地域SEO**：各ページの title・description・本文に「相模原市緑区橋本」「橋本駅」を自然な形で配置しています。

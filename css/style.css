@@ -390,6 +390,8 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .radio-row label:has(input:checked){background:var(--o-100);border-color:var(--orange);color:var(--orange-deep);font-weight:700;}
 .form-privacy{background:var(--o-50);border-radius:var(--radius-m);padding:18px 20px;font-size:13.5px;color:var(--ink-2);margin-bottom:22px;}
 .form-privacy a{color:var(--orange-dark);text-decoration:underline;}
+.form-alt-mail{margin-top:16px;font-size:13px;color:var(--ink-2);text-align:center;line-height:1.7;}
+.form-alt-mail a{color:var(--orange-dark);text-decoration:underline;}
 .form-msg{margin-bottom:24px;line-height:1.8;}
 .form-msg a{text-decoration:underline;font-weight:700;}
 .form-msg.is-ok{background:var(--green-soft);border-color:var(--green);}
