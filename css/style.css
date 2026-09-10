@@ -248,9 +248,9 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .staff h3{font-size:20px;margin-bottom:14px;}
 .staff-msg{width:100%;text-align:left;}
 .staff-msg p+p{margin-top:8px;}
-.staff-likes{width:100%;margin:18px 0 0;padding-top:16px;border-top:1px dashed var(--line);text-align:left;font-size:13.5px;}
+.staff-likes{width:100%;margin-top:auto;padding-top:18px;border-top:1px dashed var(--line);text-align:left;font-size:13.5px;}
 .staff-likes dt{display:inline-block;font-family:var(--font-round);font-weight:700;font-size:12px;color:var(--orange-dark);background:var(--yellow-soft);border-radius:999px;padding:1px 10px;margin-bottom:4px;}
-.staff-likes dd{margin:0 0 10px;color:var(--ink-2);line-height:1.8;}
+.staff-likes dd{margin:0 0 10px;color:var(--ink-2);line-height:1.8;word-break:keep-all;overflow-wrap:anywhere;}
 .staff-likes dd:last-child{margin-bottom:0;}
 
 /* 悩み */
