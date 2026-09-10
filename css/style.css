@@ -149,14 +149,13 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* 写真は CSS background で敷き、コピー／CTA はその上に載せる。
-   （img の height:auto が絶対配置を崩し、写真と文字が縦積みになるのを避ける） */
+/* 写真は CSS background で敷き、コピーとボタンをその上に載せる。
+   ボタン下（受付時間まわり）は白い余白にする。 */
 .hero-visual{
   position:relative;
   margin:0;
   overflow:hidden;
   text-align:center;
-  min-height:min(78vh,720px);
   display:flex;
   align-items:center;
   justify-content:center;
@@ -166,12 +165,17 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,246,234,.82) 100%);
+    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,248,240,.28) 100%);
   pointer-events:none;
 }
 .hero-visual>.wrap{
   position:relative;z-index:1;
-  padding:48px 8px 40px;
+  padding:48px 8px 28px;
+}
+.hero-cta{
+  background:#fff;
+  text-align:center;
+  padding:22px 0 28px;
 }
 .hero-catch{
   font-size:clamp(24px,4.4vw,42px);line-height:1.5;letter-spacing:.01em;color:var(--orange-deep);
@@ -519,8 +523,8 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .worry-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
-  .hero-visual{min-height:min(86vh,720px);}
-  .hero-visual>.wrap{padding:36px 4px 32px;}
+  .hero-visual>.wrap{padding:32px 4px 24px;}
+  .hero-cta{padding:20px 0 24px;}
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
   .cph1{grid-column:1/8;grid-row:1;aspect-ratio:4/3;border-radius:0 28px 28px 0;transform:none;}
