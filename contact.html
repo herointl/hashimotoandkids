@@ -76,11 +76,23 @@
     <div class="grid g-contact">
 
       <div class="rv">
-        <form class="form" data-demo-form novalidate>
-          <p data-form-msg hidden class="note" style="margin-bottom:24px;background:var(--green-soft);border-color:var(--green)">
-            <strong>※これはデザイン確認用のデモ表示です。</strong><br>
-            WordPress化の際に Contact Form 7 などのフォームプラグインへ差し替え、実際に送信できるようにします。
-          </p>
+        <!--
+          送信先：FormSubmit（https://formsubmit.co/）経由で info@herointl.jp に送信、hashimoto@andkids.jp に CC。
+          JS が有効な場合は js/main.js が AJAX で送信し、この action は JS 無効時のフォールバックとして使われます。
+        -->
+        <form class="form" data-contact-form action="https://formsubmit.co/info@herointl.jp" method="POST">
+          <input type="hidden" name="_subject" value="【＆kids橋本】サイトからのお問い合わせ・見学予約">
+          <input type="hidden" name="_cc" value="hashimoto@andkids.jp">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://hashimoto.andkids.jp/contact.html?sent=1">
+          <!-- スパム対策用ハニーポット（人間には見えません。入力されていたら送信は無視されます） -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="f-honey">この欄は空のままにしてください</label>
+            <input type="text" id="f-honey" name="_honey" tabindex="-1" autocomplete="off">
+          </div>
+
+          <p data-form-msg hidden class="note form-msg" role="status" aria-live="polite"></p>
 
           <div class="field">
             <label for="f-name">お名前<span class="req">必須</span></label>
@@ -131,9 +143,9 @@
             詳しくは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。
           </div>
 
-          <button class="btn btn-primary btn-lg btn-block" type="submit">
+          <button class="btn btn-primary btn-lg btn-block" type="submit" data-submit-btn>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/><path d="m3 6 9 7 9-7"/></svg>
-            この内容で送信する
+            <span data-submit-label>この内容で送信する</span>
           </button>
         </form>
       </div>
