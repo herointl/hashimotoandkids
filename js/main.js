@@ -128,8 +128,15 @@
       return payload;
     };
 
-    form.addEventListener('submit', function (e) {
-      if (!window.fetch || !window.FormData) { return; } // 古いブラウザは通常のフォーム送信にフォールバック
+    // AJAX が使えない／通信自体に失敗した場合は、通常のフォーム送信（ページ遷移）にフォールバックする。
+    // 送信完了後は hidden の _next により contact.html?sent=1 に戻り、上の完了メッセージが表示される。
+    var fallbackSubmit = function () {
+      form.removeEventListener('submit', onSubmit);
+      if (typeof form.requestSubmit === 'function') { form.requestSubmit(); } else { form.submit(); }
+    };
+
+    var onSubmit = function (e) {
+      if (!window.fetch || !window.FormData || !window.Promise) { return; } // 古いブラウザは通常送信
       e.preventDefault();
       if (msg) { msg.hidden = true; }
       setSending(true);
@@ -140,18 +147,34 @@
         body: JSON.stringify(buildPayload())
       })
         .then(function (res) {
-          return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+          // JSON 以外（メンテナンス画面・ボット判定ページ等）が返った場合は通信失敗扱いにする
+          return res.json().then(
+            function (data) { return { status: res.status, data: data }; },
+            function () { throw new Error('non-json'); }
+          );
         })
         .then(function (r) {
           var success = r.data && (r.data.success === true || r.data.success === 'true');
-          if (!r.ok || !success) { throw new Error((r.data && r.data.message) || 'send failed'); }
-          form.reset();
-          showMsg('ok', TEXT.ok);
+          if (success) {
+            form.reset();
+            setSending(false);
+            showMsg('ok', TEXT.ok);
+            return;
+          }
+          if (r.status >= 400 && r.status < 500 && r.data && r.data.message) {
+            // FormSubmit 側で明確に拒否された（入力内容の不備など）場合は再送せずエラー表示
+            setSending(false);
+            showMsg('error', TEXT.error);
+            return;
+          }
+          throw new Error('unexpected response');
         })
         .catch(function () {
-          showMsg('error', TEXT.error);
-        })
-        .then(function () { setSending(false); });
-    });
+          // ネットワークエラーや想定外レスポンスの場合は通常送信で再試行
+          fallbackSubmit();
+        });
+    };
+
+    form.addEventListener('submit', onSubmit);
   }
 })();
