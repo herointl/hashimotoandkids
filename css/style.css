@@ -148,23 +148,24 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* --- 上半分：白地にラベル／ロゴ／キャッチコピー --- */
-.hero-head{position:relative;background:#fff;padding:38px 0 30px;text-align:center;}
+/* --- 上半分：写真背景にキャッチコピー --- */
+.hero-head{
+  position:relative;
+  background:#fff url("../images/photos/hero-fv.jpg") center 42% / cover no-repeat;
+  padding:132px 0 30px;text-align:center;
+}
 .hero-head>.wrap{position:relative;z-index:1;}
-/* 白地の下端をふくらませて、写真エリアへやわらかくつなぐ */
+/* 既存の茶／オレンジ文字が読めるよう、ブランドの温かみを残した薄いヴェール */
+.hero-head::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,252,248,.78) 0%,rgba(255,248,240,.72) 48%,rgba(255,246,234,.66) 100%);
+  pointer-events:none;
+}
+/* 下端をふくらませて、写真エリアへやわらかくつなぐ */
 .hero-head::after{
   content:"";position:absolute;left:-8%;right:-8%;bottom:-46px;
-  height:94px;background:#fff;border-radius:50%;pointer-events:none;
-}
-.hero-label{
-  font-family:var(--font-round);font-weight:700;font-size:15px;letter-spacing:.08em;
-  color:var(--orange);margin-bottom:14px;
-}
-.hero-logo{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;}
-.hero-logo img{height:clamp(40px,6.4vw,64px);width:auto;}
-.hero-logo span{
-  font-family:var(--font-round);font-weight:700;line-height:1;
-  font-size:clamp(24px,4vw,38px);padding-left:14px;border-left:2px solid var(--o-200);
+  height:94px;background:linear-gradient(180deg,rgba(255,246,234,.0),rgba(255,246,234,.92) 62%,#FFF6EA);
+  border-radius:50%;pointer-events:none;
 }
 .hero-catch{
   font-size:clamp(24px,4.4vw,42px);line-height:1.5;letter-spacing:.01em;color:var(--orange-deep);
@@ -507,7 +508,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .worry-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
-  .hero-head{padding:26px 0 20px;}
+  .hero-head{padding:108px 0 20px;}
   .hero-head::after{bottom:-30px;height:62px;}
   .hero-band{padding:40px 0 56px;}
   /* スマホ：写真を4枚のモザイクに組み直し、左右いっぱいまで見せる */
@@ -544,8 +545,6 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .cta-tel .num{font-size:25px;}
   .flow-item{padding:22px 20px;gap:14px;}
   .hero-catch{font-size:23px;line-height:1.55;}
-  .hero-logo{gap:10px;}
-  .hero-logo span{padding-left:10px;}
   .hero-actions .btn{width:100%;justify-content:center;}
   .worry-item{font-size:14.5px;padding:16px 18px;}
   .worry-answer .bubble{padding:16px 22px;}
