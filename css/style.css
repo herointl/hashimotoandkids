@@ -390,6 +390,13 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .radio-row label:has(input:checked){background:var(--o-100);border-color:var(--orange);color:var(--orange-deep);font-weight:700;}
 .form-privacy{background:var(--o-50);border-radius:var(--radius-m);padding:18px 20px;font-size:13.5px;color:var(--ink-2);margin-bottom:22px;}
 .form-privacy a{color:var(--orange-dark);text-decoration:underline;}
+.form-msg{margin-bottom:24px;line-height:1.8;}
+.form-msg a{text-decoration:underline;font-weight:700;}
+.form-msg.is-ok{background:var(--green-soft);border-color:var(--green);}
+.form-msg.is-error{background:#FDECEC;border-color:#E05A5A;}
+.form .btn[disabled]{opacity:.65;cursor:not-allowed;pointer-events:none;}
+/* スパム対策用ハニーポット（人には見せない） */
+.hp-field{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
 
 /* 汎用テキスト（プライバシー等） */
 .prose h2{font-size:22px;margin:38px 0 12px;padding-left:14px;border-left:5px solid var(--orange);}
