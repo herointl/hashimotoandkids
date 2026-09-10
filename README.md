@@ -20,7 +20,8 @@
 ├─ privacy.html        … プライバシーポリシー
 ├─ sitemap.html        … サイトマップ
 ├─ css/style.css       … 全ページ共通スタイル
-├─ js/main.js          … メニュー開閉・スクロール表示アニメーション
+├─ js/main.js          … メニュー開閉・スクロール表示アニメーション・お問い合わせ送信
+├─ mailer/Code.gs      … お問い合わせメーラー（Google Apps Script。デプロイ手順はファイル冒頭）
 ├─ images/
 │   ├─ favicon.png
 │   └─ characters/     … キャラクター（加工済み）
@@ -132,12 +133,14 @@
 
 ## 4. 実装メモ
 
-- **お問い合わせフォーム**（`contact.html`）の送信先は `info@herointl.jp` と `hashimoto@andkids.jp` です。
-  - **両方に必ず届ける（推奨）**：`mailer/hashimoto-contact-submit.php` を運営会社サイトのドキュメントルートへアップロードし、`https://herointl.jp/hashimoto-contact-submit.php` で開けるようにしてください。フォームはまずこの URL へ送ります。
-  - **未設置時の予備**：専用PHPがまだ無いときは、運営会社の既存メーラー `https://herointl.jp/contact-submit.php` へ iframe で POST します（コーポレートお問い合わせと同じ受信箱）。
-  - **自動送信を確認できないとき**：「メールアプリから info@herointl.jp と hashimoto@andkids.jp へ送る」リンクから、本文入りのメールを開けます。
-  - **Google アプリスクリプトでも可**：`mailer/Code.gs` をウェブアプリとしてデプロイし、発行 URL を `contact.html` の `data-gas-url` に入れると同じ2アドレスへ送れます。
+- **お問い合わせフォーム**（`contact.html`）は Google Apps Script（`mailer/Code.gs`）経由で `info@herointl.jp` と `hashimoto@andkids.jp` の両方へメールします。サーバー不要・外部フォームサービス不要です。
+  - **初回セットアップ（約5分）**：`mailer/Code.gs` の冒頭コメントの手順どおりに、Google アカウントでウェブアプリとしてデプロイし、発行された URL（`https://script.google.com/macros/s/…/exec`）を `contact.html` の `<form … data-gas-url="…" action="…">` の2か所に貼ってください。
+  - **未設定の間**：送信ボタンを押すと「準備中」の案内が出て、両方の宛先と入力内容が入ったメールをメールアプリで開けます。運営会社サイトへ飛ぶことはありません。
+  - **送信の流れ**：`js/main.js` が画面遷移なしで Apps Script に送り、`{"ok":true}` が返ったときだけ「送信が完了しました」を表示します。失敗時は入力内容を残したまま、メールアプリ・電話の案内を出します。
+  - **宛先の変更**：`mailer/Code.gs` の `CONFIG.TO` を編集し、「デプロイを管理」から新バージョンをデプロイします（URL は変わりません）。
+  - **回答の保存（任意）**：`CONFIG.SHEET_ID` にスプレッドシートの ID を入れると、毎件シートにも記録されます。
   - **迷惑メール対策**：人には見えない「website」欄（ハニーポット）を置いています。
+  - **キャッシュ対策**：`contact.html` の `css/style.css?v=…` `js/main.js?v=…` の値を変えると、古い JS が残った端末でも最新が読み込まれます。
 - **地図**は Google マップの埋め込み（APIキー不要）です。番地まで正確なピンにしたい場合は、Google マップで施設を検索し「共有 → 地図を埋め込む」で得られる URL に差し替えてください。
 - **お知らせ**（`news.html`）は WordPress の「投稿」で運用する想定です。カテゴリーは「お知らせ／空き状況／行事／重要」の4つを想定し、トップページには最新3件を自動表示します。
 - **地域SEO**：各ページの title・description・本文に「相模原市緑区橋本」「橋本駅」を自然な形で配置しています。
