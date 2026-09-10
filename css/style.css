@@ -187,7 +187,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
 .badge svg{width:15px;height:15px;color:var(--orange);}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;}
-.hero-note{margin-top:16px;font-size:13px;color:var(--ink-2);}
+.hero-note{margin:0;font-size:13px;color:var(--ink-2);}
 
 /* 写真コラージュ */
 .hero-band{position:relative;padding:64px 0 78px;}
