@@ -65,38 +65,21 @@
   var y = document.querySelector('[data-year]');
   if (y) { y.textContent = new Date().getFullYear(); }
 
-  /* --- お問い合わせフォーム --- */
+  /* --- お問い合わせフォーム（Google Apps Script へ送信） --- */
   var form = document.querySelector('[data-contact-form]');
   if (form) {
+    var gasUrl = (form.getAttribute('data-gas-url') || '').trim();
     var msg = form.querySelector('[data-form-msg]');
     var btn = form.querySelector('[data-submit-btn]');
     var btnLabel = form.querySelector('[data-submit-label]');
     var defaultLabel = btnLabel ? btnLabel.textContent : '';
-    var bodyInput = form.querySelector('[data-mail-body]');
-    var emailInput = form.querySelector('[data-mail-fallback]');
-    var mailtoLink = document.querySelector('[data-mailto-link]');
-    var defaultBody = bodyInput ? bodyInput.value : '';
-    var fallbackEmail = emailInput ? emailInput.value : 'hashimoto@andkids.jp';
-    var dedicatedUrl = form.getAttribute('data-dedicated-url') || '';
-    var gasUrl = form.getAttribute('data-gas-url') || '';
+    var mailtoLink = form.querySelector('[data-mailto-link]');
+    var TO = 'info@herointl.jp,hashimoto@andkids.jp';
 
     var TEXT = {
       ok: '<strong>送信が完了しました。</strong><br>お問い合わせありがとうございます。担当者より順次ご連絡いたします。<br>お急ぎの場合はお電話（<a href="tel:0428163228">042-816-3228</a>）でもお気軽にご連絡ください。',
-      error: '<strong>自動送信を確認できませんでした。</strong><br>下の「メールアプリから送る」を押すと、<a href="mailto:info@herointl.jp,hashimoto@andkids.jp">info@herointl.jp</a> と <a href="mailto:hashimoto@andkids.jp">hashimoto@andkids.jp</a> の両方に送れます。',
-      mailto: '<strong>メールアプリを開きました。</strong><br>送信を押すと <strong>info@herointl.jp</strong> と <strong>hashimoto@andkids.jp</strong> の両方に届きます。アプリが開かない場合は、下のリンクから開いてください。'
-    };
-
-    var showMsg = function (type, html) {
-      if (!msg) { return; }
-      msg.className = 'note form-msg is-' + type;
-      msg.innerHTML = html;
-      msg.hidden = false;
-      msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    };
-
-    var setSending = function (sending) {
-      if (btn) { btn.disabled = sending; }
-      if (btnLabel) { btnLabel.textContent = sending ? '送信中…' : defaultLabel; }
+      fail: '<strong>送信できませんでした。</strong><br>お手数ですが、下の<a data-mailto-inline href="#">メールアプリから送る</a>か、お電話（<a href="tel:0428163228">042-816-3228</a>）でご連絡ください。入力内容はそのまま残っています。',
+      notReady: '<strong>フォームの自動送信は現在準備中です。</strong><br>下の<a data-mailto-inline href="#">メールアプリから送る</a>を押すと、入力内容が入ったメールが開きます。そのまま送信してください。'
     };
 
     var val = function (name) {
@@ -109,144 +92,131 @@
       return String(el.value || '').trim();
     };
 
-    var digits = function (s) { return String(s || '').replace(/\D/g, ''); };
-
-    var buildBody = function () {
-      var userEmail = val('user_email');
-      return [
-        '【＆kids橋本 ホームページからのお問い合わせ】',
-        '',
-        'ご希望内容: ' + (val('purpose') || '（未選択）'),
-        'お名前: ' + (val('name') || '（未入力）'),
-        '電話番号: ' + (val('tel') || '（未入力）'),
-        'メールアドレス: ' + (userEmail || '（未入力・お電話でご連絡ください）'),
-        'お子さまの年齢: ' + (val('age') || '（未入力）'),
-        '',
-        '備考・ご質問:',
-        val('message') || '（なし）',
-        '',
-        '---',
-        '送信元: ' + window.location.href.split('?')[0],
-        'この内容は info@herointl.jp と hashimoto@andkids.jp の両方へお送りください。'
-      ].join('\n');
-    };
-
-    var prepareFields = function () {
-      var userEmail = val('user_email');
-      if (emailInput) { emailInput.value = userEmail || fallbackEmail; }
-      if (bodyInput) { bodyInput.value = buildBody(); }
-    };
-
-    var mailtoHref = function () {
-      return 'mailto:info@herointl.jp,hashimoto@andkids.jp'
-        + '?subject=' + encodeURIComponent('【＆kids橋本】お問い合わせ・見学予約')
-        + '&body=' + encodeURIComponent(buildBody());
-    };
-
-    var syncMailto = function () {
-      if (mailtoLink) { mailtoLink.setAttribute('href', mailtoHref()); }
-    };
-
-    var resetHidden = function () {
-      if (bodyInput) { bodyInput.value = defaultBody; }
-      if (emailInput) { emailInput.value = fallbackEmail; }
-    };
-
     var payload = function () {
       return {
         name: val('name'),
         tel: val('tel'),
         user_email: val('user_email'),
-        email: val('user_email') || fallbackEmail,
         age: val('age'),
         purpose: val('purpose'),
         message: val('message'),
-        body: buildBody(),
-        type: 'こども発達らぼ＆kids について',
-        company: '＆kids橋本ホームページ',
-        website: val('website')
+        website: val('website'),
+        page: window.location.href.split('?')[0]
       };
     };
 
-    var postJson = function (url) {
-      return fetch(url, {
+    var mailBody = function () {
+      var d = payload();
+      return [
+        '【＆kids橋本 ホームページからのお問い合わせ】',
+        '',
+        'ご希望内容: ' + (d.purpose || '（未選択）'),
+        'お名前: ' + (d.name || '（未入力）'),
+        '電話番号: ' + (d.tel || '（未入力）'),
+        'メールアドレス: ' + (d.user_email || '（未入力）'),
+        'お子さまの年齢: ' + (d.age || '（未入力）'),
+        '',
+        '備考・ご質問:',
+        d.message || '（なし）'
+      ].join('\n');
+    };
+
+    var mailtoHref = function () {
+      return 'mailto:' + TO
+        + '?subject=' + encodeURIComponent('【＆kids橋本】お問い合わせ・見学予約')
+        + '&body=' + encodeURIComponent(mailBody());
+    };
+
+    var syncMailto = function () {
+      var href = mailtoHref();
+      if (mailtoLink) { mailtoLink.setAttribute('href', href); }
+      var inline = msg ? msg.querySelector('[data-mailto-inline]') : null;
+      if (inline) { inline.setAttribute('href', href); }
+    };
+
+    var showMsg = function (type, html) {
+      if (!msg) { return; }
+      msg.className = 'note form-msg is-' + type;
+      msg.innerHTML = html;
+      msg.hidden = false;
+      syncMailto();
+      msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    var setSending = function (sending) {
+      if (btn) { btn.disabled = sending; }
+      if (btnLabel) { btnLabel.textContent = sending ? '送信中…' : defaultLabel; }
+    };
+
+    var digits = function (s) { return String(s || '').replace(/\D/g, ''); };
+
+    // JS 無効ブラウザからの通常送信後に ?sent= で戻ってきた場合
+    var sentParam = /[?&]sent=([^&]+)/.exec(window.location.search);
+    if (sentParam) {
+      showMsg(sentParam[1] === '1' ? 'ok' : 'error', sentParam[1] === '1' ? TEXT.ok : TEXT.fail);
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+      }
+    }
+
+    ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, syncMailto); });
+    syncMailto();
+
+    // Apps Script は preflight（OPTIONS）に応答しないため、
+    // Content-Type を text/plain にした「シンプルリクエスト」で JSON を送る
+    var send = function (data) {
+      var controller = window.AbortController ? new AbortController() : null;
+      var timer = setTimeout(function () { if (controller) { controller.abort(); } }, 20000);
+      return fetch(gasUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(payload())
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+        signal: controller ? controller.signal : undefined
       }).then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok || !data || data.ok !== true) { throw new Error('rejected'); }
-          return data;
-        }, function () { throw new Error('non-json'); });
+        clearTimeout(timer);
+        return res.json();
+      }, function (err) {
+        clearTimeout(timer);
+        throw err;
       });
     };
 
-    var finished = false;
-    var timer = null;
-
-    var succeed = function () {
-      if (finished) { return; }
-      finished = true;
-      if (timer) { clearTimeout(timer); }
-      form.reset();
-      resetHidden();
-      setSending(false);
-      showMsg('ok', TEXT.ok);
-    };
-
-    var openMailto = function () {
-      if (finished) { return; }
-      finished = true;
-      if (timer) { clearTimeout(timer); }
-      setSending(false);
-      syncMailto();
-      showMsg('ok', TEXT.mailto);
-      window.location.href = mailtoHref();
-    };
-
-    if (/[?&]sent=1(&|$)/.test(window.location.search)) {
-      showMsg('ok', TEXT.ok);
-    }
-
-    ['input', 'change'].forEach(function (ev) {
-      form.addEventListener(ev, syncMailto);
-    });
-    syncMailto();
-
     form.addEventListener('submit', function (e) {
-      if (!window.fetch) { prepareFields(); return; }
+      // 送信先が未設定なら、通常送信ではなくメールアプリ案内に切り替える
+      if (!gasUrl) {
+        e.preventDefault();
+        showMsg('error', TEXT.notReady);
+        return;
+      }
+      if (!window.fetch || !window.Promise) { return; } // 古いブラウザは通常送信（Apps Script 側で ?sent= に戻す）
+
       e.preventDefault();
       if (msg) { msg.hidden = true; }
 
-      if (val('website')) { showMsg('ok', TEXT.ok); form.reset(); return; }
-      if (!val('name')) { showMsg('error', 'お名前を入力してください。'); return; }
-      if (digits(val('tel')).length < 10) { showMsg('error', '電話番号を正しく入力してください。'); return; }
-      if (val('user_email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('user_email'))) {
+      var data = payload();
+      if (data.website) { form.reset(); showMsg('ok', TEXT.ok); return; }
+      if (!data.name) { showMsg('error', 'お名前を入力してください。'); return; }
+      if (digits(data.tel).length < 10) { showMsg('error', '電話番号を正しく入力してください。'); return; }
+      if (data.user_email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.user_email)) {
         showMsg('error', 'メールアドレスの形式が正しくありません。');
         return;
       }
 
-      prepareFields();
-      syncMailto();
       setSending(true);
-      finished = false;
-      if (timer) { clearTimeout(timer); }
-      timer = setTimeout(openMailto, 8000);
-
-      var endpoints = [];
-      if (gasUrl) { endpoints.push(gasUrl); }
-      if (dedicatedUrl) { endpoints.push(dedicatedUrl); }
-
-      var tryNext = function (i) {
-        if (i < endpoints.length) {
-          postJson(endpoints[i]).then(succeed).catch(function () { tryNext(i + 1); });
-          return;
-        }
-        // サーバー側メーラーが未設置／失敗したときは、両方の宛先へメールアプリで送る
-        openMailto();
-      };
-
-      tryNext(0);
+      send(data)
+        .then(function (res) {
+          setSending(false);
+          if (res && res.ok === true) {
+            form.reset();
+            showMsg('ok', TEXT.ok);
+          } else {
+            showMsg('error', TEXT.fail);
+          }
+        })
+        .catch(function () {
+          setSending(false);
+          showMsg('error', TEXT.fail);
+        });
     });
   }
 })();
