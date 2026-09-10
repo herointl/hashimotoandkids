@@ -77,19 +77,19 @@
 
       <div class="rv">
         <!--
-          送信先：FormSubmit（https://formsubmit.co/）経由で info@herointl.jp に送信、hashimoto@andkids.jp に CC。
-          JS が有効な場合は js/main.js が AJAX で送信し、この action は JS 無効時のフォールバックとして使われます。
+          送信は運営会社サイトと同じメーラー（herointl.jp/contact-submit.php）を使用します。
+          JS が有効なときは画面遷移なしで送信し、無効なときは通常の POST になります。
         -->
-        <form class="form" data-contact-form action="https://formsubmit.co/info@herointl.jp" method="POST">
-          <input type="hidden" name="_subject" value="【＆kids橋本】サイトからのお問い合わせ・見学予約">
-          <input type="hidden" name="_cc" value="hashimoto@andkids.jp">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://hashimoto.andkids.jp/contact.html?sent=1">
-          <!-- スパム対策用ハニーポット（人間には見えません。入力されていたら送信は無視されます） -->
+        <form class="form" data-contact-form action="https://herointl.jp/contact-submit.php" method="POST">
+          <input type="hidden" name="type" value="こども発達らぼ＆kids について">
+          <input type="hidden" name="company" value="＆kids橋本ホームページ">
+          <input type="hidden" name="body" data-mail-body value="＆kids橋本ホームページ（hashimoto.andkids.jp）からのお問い合わせです。">
+          <!-- PHP 側は email 必須。未入力時は教室アドレスを Reply-To にして送信が落ちないようにする -->
+          <input type="hidden" name="email" data-mail-fallback value="hashimoto@andkids.jp">
+          <!-- スパム対策用ハニーポット（人間には見えません） -->
           <div class="hp-field" aria-hidden="true">
-            <label for="f-honey">この欄は空のままにしてください</label>
-            <input type="text" id="f-honey" name="_honey" tabindex="-1" autocomplete="off">
+            <label for="f-website">この欄は空のままにしてください</label>
+            <input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off">
           </div>
 
           <p data-form-msg hidden class="note form-msg" role="status" aria-live="polite"></p>
@@ -106,7 +106,7 @@
 
           <div class="field">
             <label for="f-mail">メールアドレス<span class="opt">任意</span></label>
-            <input type="email" id="f-mail" name="email" autocomplete="email" placeholder="example@example.com">
+            <input type="email" id="f-mail" name="user_email" autocomplete="email" placeholder="example@example.com">
           </div>
 
           <div class="field">
