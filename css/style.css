@@ -303,8 +303,10 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .voice-head img{width:52px;height:52px;border-radius:50%;background:var(--o-100);}
 .voice-head .who{font-family:var(--font-round);font-weight:700;font-size:15px;}
 .voice-head .who small{display:block;font-weight:400;font-size:12px;color:var(--ink-3);}
-.voice p{font-size:14.5px;color:var(--ink-2);}
+.voice p{font-size:14.5px;color:var(--ink-2);line-height:1.85;}
+.voice p + p{margin-top:10px;}
 .voice .sample{display:inline-block;margin-bottom:8px;font-size:11px;font-weight:700;background:#FFF0D6;color:#8A5A10;border-radius:999px;padding:2px 10px;}
+.voice-grid{align-items:stretch;}
 
 /* 新着情報 */
 .news-list li{border-bottom:1px dashed var(--line);}
