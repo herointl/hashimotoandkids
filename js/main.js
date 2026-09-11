@@ -17,25 +17,40 @@
 
   /* --- モバイルナビ開閉 --- */
   var toggle = document.querySelector('.nav-toggle');
-  if (toggle) {
-    toggle.addEventListener('click', function () {
-      var open = document.body.classList.toggle('nav-open');
+  var drawer = document.getElementById('drawer');
+  var closeBtn = document.querySelector('.drawer-fab-close');
+  var setNav = function (open, opts) {
+    document.body.classList.toggle('nav-open', open);
+    if (toggle) {
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    }
+    if (drawer) {
+      if (open) { drawer.removeAttribute('hidden'); }
+      else { drawer.setAttribute('hidden', ''); }
+    }
+    if (open && closeBtn) { closeBtn.focus(); }
+    else if (!open && toggle && opts && opts.focusToggle) { toggle.focus(); }
+  };
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var willOpen = !document.body.classList.contains('nav-open');
+      setNav(willOpen, { focusToggle: !willOpen });
     });
-    // ナビ内リンクをタップしたら閉じる
-    document.querySelectorAll('.gnav a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        document.body.classList.remove('nav-open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () { setNav(false, { focusToggle: true }); });
+    }
+    document.querySelectorAll('.gnav a, .drawer-nav a, .drawer-fab-access').forEach(function (a) {
+      a.addEventListener('click', function () { setNav(false); });
     });
-    // Esc で閉じる
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && document.body.classList.contains('nav-open')) {
-        document.body.classList.remove('nav-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
+        setNav(false, { focusToggle: true });
+      }
+    });
+    window.addEventListener('resize', function () {
+      if (window.matchMedia('(min-width: 861px)').matches && document.body.classList.contains('nav-open')) {
+        setNav(false);
       }
     });
   }

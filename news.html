@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=20260911a">
 </head>
 <body>
 <a class="skip-link" href="#main">本文へスキップ</a>
@@ -48,6 +48,78 @@
         <li><a href="contact.html">お問い合わせ</a></li>
       </ul>
     </nav>
+    <div class="drawer" id="drawer" hidden>
+      <div class="drawer-inner">
+        <div class="drawer-head">
+          <a class="brand" href="index.html">
+            <img class="brand-logo" src="images/logo.png" alt="＆kids" width="661" height="160">
+            <span class="brand-place">橋本</span>
+          </a>
+          <div class="drawer-tools">
+            <a class="drawer-fab drawer-fab-access" href="access.html">
+              <span class="drawer-fab-ico" aria-hidden="true">
+                <img src="images/characters/husky-happy.png" alt="" width="604" height="760">
+              </span>
+              <span class="drawer-fab-label">ACCESS</span>
+            </a>
+            <button class="drawer-fab drawer-fab-close" type="button" aria-label="メニューを閉じる">
+              <span class="drawer-fab-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </span>
+              <span class="drawer-fab-label">CLOSE</span>
+            </button>
+          </div>
+        </div>
+        <nav class="drawer-nav" aria-label="モバイルメニュー">
+          <ul class="drawer-grid">
+            <li>
+              <a href="about.html">
+                <span class="drawer-ch"><img src="images/characters/dog-normal.png" alt="" width="511" height="620"></span>
+                <span class="drawer-ttl">事業所紹介</span>
+              </a>
+            </li>
+            <li>
+              <a href="program.html">
+                <span class="drawer-ch"><img src="images/characters/kid.png" alt="" width="689" height="720"></span>
+                <span class="drawer-ttl">支援内容</span>
+              </a>
+            </li>
+            <li>
+              <a href="about.html#schedule">
+                <span class="drawer-ch"><img src="images/characters/pome-a.png" alt="" width="580" height="580"></span>
+                <span class="drawer-ttl">1日の流れ</span>
+              </a>
+            </li>
+            <li>
+              <a href="guide.html">
+                <span class="drawer-ch"><img src="images/characters/ann.png" alt="" width="694" height="720"></span>
+                <span class="drawer-ttl">ご利用案内</span>
+              </a>
+            </li>
+            <li>
+              <a href="news.html">
+                <span class="drawer-ch"><img src="images/characters/dog-happy.png" alt="" width="508" height="620"></span>
+                <span class="drawer-ttl">お知らせ</span>
+              </a>
+            </li>
+            <li>
+              <a href="access.html">
+                <span class="drawer-ch"><img src="images/characters/husky-b.png" alt="" width="604" height="760"></span>
+                <span class="drawer-ttl">アクセス</span>
+              </a>
+            </li>
+          </ul>
+          <ul class="drawer-pills">
+            <li><a href="faq.html"><span class="drawer-pill-mark" aria-hidden="true"></span>よくある質問</a></li>
+            <li><a href="contact.html"><span class="drawer-pill-mark" aria-hidden="true"></span>見学予約</a></li>
+          </ul>
+        </nav>
+        <div class="drawer-foot">
+          <a class="drawer-tel" href="tel:0428163228">042-816-3228</a>
+          <p>〒252-0143 神奈川県相模原市緑区橋本5丁目19-3</p>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -179,6 +251,6 @@
   <a class="btn btn-primary" href="contact.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v3M17 2v3M3 9h18M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>見学予約</a>
 </div>
 
-<script src="js/main.js" defer></script>
+<script src="js/main.js?v=20260911a" defer></script>
 </body>
 </html>
