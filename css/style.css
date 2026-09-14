@@ -714,6 +714,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
     letter-spacing:.05em;
   }
   .hero-cta{padding:10px 0 22px;}
+  .hero-cta .hero-actions{display:none;}
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
   .cph1{grid-column:1/8;grid-row:1;aspect-ratio:4/3;border-radius:0 28px 28px 0;transform:none;}
