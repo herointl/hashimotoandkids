@@ -716,13 +716,9 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
     flex-direction:column;
     align-items:center;
     font-size:clamp(56px, 18vw, 92px);
-    letter-spacing:.1em;
-    line-height:.88;
+    letter-spacing:.08em;
+    line-height:.9;
     gap:0;
-  }
-  .hero-catch-and{
-    letter-spacing:.42em;
-    margin-right:-.42em;
   }
   .hero-grass{height:clamp(150px, 42vw, 200px);}
   .hero-brand{width:96%;gap:6px;bottom:12px;align-items:flex-end;}
