@@ -160,8 +160,8 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* 写真は CSS background で敷き、キャッチを上に、AND KIDS を下中央に置く。
-   ボタン下（受付時間まわり）は白い余白にする。 */
+/* 写真は CSS background で敷き、下部は斜めの白い三角のまま。
+   AND KIDS はその三角の上に置く。境界線は斜めカットのみ。 */
 .hero-visual{
   position:relative;
   margin:0;
@@ -170,19 +170,25 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:min(72vh,680px);
+  min-height:min(78vh,720px);
   background:#FFF8F0 url("../images/photos/hero-fv.jpg") center 42% / cover no-repeat;
 }
 .hero-visual::after{
   content:"";
-  position:absolute;inset:0;
+  position:absolute;inset:0;z-index:0;
   background:
-    linear-gradient(180deg,rgba(255,252,248,.42) 0%,rgba(255,248,240,.22) 36%,rgba(255,255,255,0) 58%),
-    linear-gradient(180deg,transparent 48%,#fff 86%);
+    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,248,240,.28) 100%);
+  pointer-events:none;
+}
+.hero-visual::before{
+  content:"";
+  position:absolute;inset:0;z-index:1;
+  background:#fff;
+  clip-path:polygon(0 82%, 100% 55%, 100% 100%, 0 100%);
   pointer-events:none;
 }
 .hero-visual>.wrap{
-  position:relative;z-index:1;
+  position:relative;z-index:2;
   padding:48px 8px 12px;
 }
 .hero-cta{
@@ -199,7 +205,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
 .badge svg{width:15px;height:15px;color:var(--orange);}
 .hero-brand{
-  position:relative;z-index:2;
+  position:relative;z-index:3;
   display:grid;
   grid-template-columns:120px 1fr 120px;
   align-items:end;
@@ -691,7 +697,8 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
   .hero-visual>.wrap{padding:28px 4px 8px;}
-  .hero-visual{min-height:min(62vh,560px);}
+  .hero-visual{min-height:min(70vh,640px);}
+  .hero-visual::before{clip-path:polygon(0 80%, 100% 50%, 100% 100%, 0 100%);}
   .hero-brand{
     grid-template-columns:78px 1fr 78px;
     padding:0 10px 4px;
