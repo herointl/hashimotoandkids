@@ -160,7 +160,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* 写真は CSS background で敷き、コピーとボタンをその上に載せる。
+/* 写真は CSS background で敷き、キャッチを上に、AND KIDS を下中央に置く。
    ボタン下（受付時間まわり）は白い余白にする。 */
 .hero-visual{
   position:relative;
@@ -168,37 +168,70 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   overflow:hidden;
   text-align:center;
   display:flex;
-  align-items:center;
-  justify-content:center;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:min(72vh,680px);
   background:#FFF8F0 url("../images/photos/hero-fv.jpg") center 42% / cover no-repeat;
 }
 .hero-visual::after{
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,248,240,.28) 100%);
+    linear-gradient(180deg,rgba(255,252,248,.42) 0%,rgba(255,248,240,.22) 36%,rgba(255,255,255,0) 58%),
+    linear-gradient(180deg,transparent 48%,#fff 86%);
   pointer-events:none;
 }
 .hero-visual>.wrap{
   position:relative;z-index:1;
-  padding:48px 8px 28px;
+  padding:48px 8px 12px;
 }
 .hero-cta{
   background:#fff;
   text-align:center;
-  padding:22px 0 28px;
+  padding:8px 0 28px;
 }
 .hero-catch{
   font-size:clamp(24px,4.4vw,42px);line-height:1.5;letter-spacing:.01em;color:var(--orange-deep);
 }
 .hero-catch .accent{color:var(--orange-deep);}
 .hero-catch .mark{background:linear-gradient(transparent 60%,rgba(251,216,107,.85) 60%);}
-.hero-lead{margin:20px auto 0;max-width:40em;font-size:15.5px;color:var(--ink);}
 .hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
 .badge svg{width:15px;height:15px;color:var(--orange);}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;}
-.hero-note{margin:0;font-size:13px;color:var(--ink-2);}
+.hero-brand{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:120px 1fr 120px;
+  align-items:end;
+  width:100%;
+  max-width:var(--wrap);
+  margin:0 auto;
+  padding:0 20px 10px;
+  min-height:128px;
+  box-sizing:border-box;
+}
+.hero-brand-ch{
+  width:112px;height:auto;justify-self:start;
+  filter:drop-shadow(0 6px 10px rgba(120,70,20,.16));
+  pointer-events:none;
+}
+.hero-wordmark{
+  grid-column:2;
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  gap:.28em;
+  margin:0 0 12px;
+  color:#111;
+  font-family:var(--font-round);
+  font-weight:900;
+  font-size:clamp(48px,6vw,78px);
+  letter-spacing:.1em;
+  line-height:.9;
+  text-align:center;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px;}
+.hero-note{margin:14px 0 0;font-size:13px;color:var(--ink-2);}
 
 /* 写真コラージュ */
 .hero-band{position:relative;padding:64px 0 78px;}
@@ -657,8 +690,23 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .worry-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
-  .hero-visual>.wrap{padding:32px 4px 24px;}
-  .hero-cta{padding:20px 0 24px;}
+  .hero-visual>.wrap{padding:28px 4px 8px;}
+  .hero-visual{min-height:min(62vh,560px);}
+  .hero-brand{
+    grid-template-columns:78px 1fr 78px;
+    padding:0 10px 4px;
+    min-height:100px;
+  }
+  .hero-brand-ch{width:78px;}
+  .hero-wordmark{
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+    margin:0 0 6px;
+    font-size:clamp(40px,14vw,62px);
+    letter-spacing:.05em;
+  }
+  .hero-cta{padding:10px 0 22px;}
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
   .cph1{grid-column:1/8;grid-row:1;aspect-ratio:4/3;border-radius:0 28px 28px 0;transform:none;}
