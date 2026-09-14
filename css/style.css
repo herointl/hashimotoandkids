@@ -708,11 +708,11 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .hero-brand-mark{
     flex-direction:column;
     align-items:flex-start;
-    font-size:clamp(44px, 13.5vw, 62px);
+    font-size:clamp(48px, 15vw, 68px);
     letter-spacing:.04em;
-    line-height:.86;
-    margin:0 0 2px;
-    transform:translateY(-18%);
+    line-height:.84;
+    margin:0;
+    transform:translateY(-42%);
   }
   .hero-cta{padding:20px 0 24px;}
   .hero-band{padding:40px 0 56px;}
