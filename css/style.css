@@ -160,44 +160,84 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   background:linear-gradient(180deg,#FFF6EA 0%,#FFEEDC 42%,#FFE3C6 100%);
 }
 
-/* 写真は CSS background で敷き、コピーとボタンをその上に載せる。
-   ボタン下（受付時間まわり）は白い余白にする。 */
+/* 住田学園トップに近い構成：全面写真＋右側の白縦書き＋下部コピーとマスコット */
 .hero-visual{
   position:relative;
   margin:0;
   overflow:hidden;
-  text-align:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#FFF8F0 url("../images/photos/hero-fv.jpg") center 42% / cover no-repeat;
+  min-height:clamp(520px, 78vh, 860px);
+  background:#c9b8a8;
 }
-.hero-visual::after{
-  content:"";
+.hero-photo{
   position:absolute;inset:0;
-  background:
-    linear-gradient(180deg,rgba(255,252,248,.55) 0%,rgba(255,248,240,.42) 38%,rgba(255,248,240,.28) 100%);
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center 28%;
+  display:block;
+}
+.hero-catch{
+  position:absolute;z-index:2;
+  top:14%;
+  right:5.5%;
+  margin:0;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  font-size:clamp(22px, 2.8vw, 36px);
+  font-weight:700;
+  letter-spacing:.18em;
+  line-height:1.85;
+  color:#fff;
+  text-shadow:0 2px 10px rgba(60,30,10,.45), 0 0 24px rgba(0,0,0,.22);
+}
+.hero-grass{
+  position:absolute;z-index:2;
+  left:50%;bottom:-1px;
+  transform:translateX(-50%);
+  width:220%;
+  height:clamp(88px, 18vw, 180px);
   pointer-events:none;
 }
-.hero-visual>.wrap{
-  position:relative;z-index:1;
-  padding:48px 8px 28px;
+.hero-grass svg{
+  display:block;width:100%;height:100%;
+}
+.hero-grass path{fill:#fff;stroke:none;}
+.hero-brand{
+  position:absolute;z-index:3;
+  left:50%;
+  bottom:clamp(18px, 3vw, 36px);
+  transform:translateX(-50%);
+  width:min(980px, 94%);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:clamp(8px, 1.6vw, 22px);
+  pointer-events:none;
+}
+.hero-mascot{
+  width:clamp(92px, 14vw, 168px);
+  height:auto;
+  flex-shrink:0;
+  filter:drop-shadow(0 10px 16px rgba(80,40,10,.22));
+  transform:translateY(6%);
+}
+.hero-brand-copy{
+  margin:0;
+  max-width:38em;
+  font-family:var(--font-round);
+  font-weight:700;
+  font-size:clamp(13px, 1.55vw, 20px);
+  line-height:1.75;
+  letter-spacing:.04em;
+  color:#4a4a4a;
+  text-align:left;
 }
 .hero-cta{
   background:#fff;
   text-align:center;
   padding:22px 0 28px;
 }
-.hero-catch{
-  font-size:clamp(24px,4.4vw,42px);line-height:1.5;letter-spacing:.01em;color:var(--orange-deep);
-}
-.hero-catch .accent{color:var(--orange-deep);}
-.hero-catch .mark{background:linear-gradient(transparent 60%,rgba(251,216,107,.85) 60%);}
-.hero-lead{margin:20px auto 0;max-width:40em;font-size:15.5px;color:var(--ink);}
-.hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;}
 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.94);border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;font-family:var(--font-round);color:var(--orange-deep);box-shadow:var(--shadow-s);}
 .badge svg{width:15px;height:15px;color:var(--orange);}
-.hero-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;}
 .hero-note{margin:0;font-size:13px;color:var(--ink-2);}
 
 /* 写真コラージュ */
@@ -657,7 +697,11 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .worry-grid{grid-template-columns:1fr;}
   .footer-top{grid-template-columns:1fr;gap:28px;}
   .prog{flex-direction:column;align-items:center;text-align:center;gap:16px;}
-  .hero-visual>.wrap{padding:32px 4px 24px;}
+  .hero-visual{min-height:clamp(460px, 72vh, 680px);}
+  .hero-catch{top:10%;right:4%;font-size:clamp(18px, 5vw, 24px);letter-spacing:.14em;}
+  .hero-brand{width:96%;gap:8px;bottom:10px;align-items:center;}
+  .hero-mascot{width:88px;}
+  .hero-brand-copy{font-size:12.5px;line-height:1.65;}
   .hero-cta{padding:20px 0 24px;}
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
@@ -692,8 +736,10 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .btn-lg{padding:16px 28px;font-size:16px;}
   .cta-tel .num{font-size:25px;}
   .flow-item{padding:22px 20px;gap:14px;}
-  .hero-catch{font-size:23px;line-height:1.55;}
-  .hero-actions .btn{width:100%;justify-content:center;}
+  .hero-catch{font-size:17px;top:8%;right:3.5%;}
+  .hero-brand{flex-wrap:nowrap;}
+  .hero-mascot{width:72px;}
+  .hero-brand-copy{font-size:11.5px;}
   .worry-item{font-size:14.5px;padding:16px 18px;}
   .worry-answer .bubble{padding:16px 22px;}
 }
