@@ -166,7 +166,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   margin:0;
   overflow:hidden;
   min-height:clamp(560px, 82vh, 900px);
-  background:#c9b8a8;
+  background:#fff;
 }
 .hero-photo{
   position:absolute;inset:0;
