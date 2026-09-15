@@ -1,0 +1,49 @@
+name: Sync news from microCMS
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [microcms]
+  schedule:
+    - cron: '20 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/sync-news.mjs'
+      - 'news.html'
+      - '.github/workflows/sync-news.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate news JSON and article pages
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          MICROCMS_ENDPOINT: news
+          SITE_ORIGIN: https://hashimoto.andkids.jp
+        run: node scripts/sync-news.mjs
+
+      - name: Commit generated news files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news.json news
+          if git diff --cached --quiet; then
+            echo "No news changes"
+          else
+            git commit -m "chore: microCMSのお知らせを同期する"
+            git push
+          fi
