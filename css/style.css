@@ -203,25 +203,28 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .hero-grass path{fill:#fff;stroke:none;}
 .hero-brand{
   position:absolute;z-index:3;
-  left:50%;
-  bottom:clamp(8px, 1.4vw, 20px);
-  transform:translateX(-50%);
-  width:min(980px, 94%);
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  gap:clamp(8px, 1.6vw, 22px);
+  left:0;
+  right:0;
+  bottom:-1px;
+  width:100%;
+  height:clamp(72px, 13vw, 140px);
   pointer-events:none;
 }
 .hero-mascot{
+  position:absolute;
+  left:clamp(2%, calc(50% - 210px), 22%);
+  bottom:0;
   width:clamp(100px, 15vw, 186px);
   height:auto;
-  flex-shrink:0;
   filter:drop-shadow(0 10px 16px rgba(80,40,10,.22));
-  transform:translateY(-18%);
+  transform:translateY(-55%);
 }
 .hero-brand-mark{
-  margin:0 0 8px;
+  position:absolute;
+  left:50%;
+  top:6px;
+  transform:translateX(-50%);
+  margin:0;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
@@ -708,9 +711,9 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .hero-visual{min-height:clamp(520px, 76vh, 680px);}
   .hero-catch{top:8%;right:3.5%;font-size:clamp(16px, 4.4vw, 20px);}
   .hero-grass{height:clamp(150px, 42vw, 200px);}
-  .hero-brand{width:96%;gap:6px;bottom:12px;align-items:flex-end;}
-  .hero-mascot{width:86px;transform:translateY(-10%);}
-  .hero-brand-mark{margin-bottom:4px;}
+  .hero-brand{height:clamp(150px, 42vw, 200px);}
+  .hero-mascot{left:4%;top:10px;bottom:auto;width:86px;transform:none;}
+  .hero-brand-mark{top:8px;}
   .hero-brand-and,.hero-brand-kids{font-size:clamp(36px, 12vw, 52px);}
   .hero-cta{padding:20px 0 24px;}
   .hero-band{padding:40px 0 56px;}
@@ -747,8 +750,7 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .cta-tel .num{font-size:25px;}
   .flow-item{padding:22px 20px;gap:14px;}
   .hero-catch{font-size:15px;top:7%;right:3%;letter-spacing:.1em;}
-  .hero-brand{flex-wrap:nowrap;}
-  .hero-mascot{width:70px;}
+  .hero-mascot{left:2%;top:8px;bottom:auto;width:70px;transform:none;}
   .hero-brand-and,.hero-brand-kids{font-size:clamp(32px, 14vw, 46px);}
   .worry-item{font-size:14.5px;padding:16px 18px;}
   .worry-answer .bubble{padding:16px 22px;}
