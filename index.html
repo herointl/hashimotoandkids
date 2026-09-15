@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20260915-andkids-bottom">
+<link rel="stylesheet" href="css/style.css?v=20260915-news">
 </head>
 <body>
 <a class="skip-link" href="#main">本文へスキップ</a>
@@ -409,18 +409,18 @@
       <h2 class="sec-title">新着情報</h2>
     </div>
 
-    <ul class="news-list rv">
-      <li><a href="news.html">
+    <ul class="news-list rv" data-news-list data-news-limit="3" data-news-src="data/news.json">
+      <li><a href="news/homepage-open/">
         <time class="news-date" datetime="2026-08-01">2026.08.01</time>
         <span class="news-cat">お知らせ</span>
         <span class="news-ttl">【サンプル】ホームページを公開しました</span>
       </a></li>
-      <li><a href="news.html">
+      <li><a href="news/vacancy-guide/">
         <time class="news-date" datetime="2026-07-15">2026.07.15</time>
         <span class="news-cat g">空き状況</span>
         <span class="news-ttl">【サンプル】現在の受け入れ状況についてのご案内</span>
       </a></li>
-      <li><a href="news.html">
+      <li><a href="news/opened/">
         <time class="news-date" datetime="2026-05-01">2026.05.01</time>
         <span class="news-cat b">重要</span>
         <span class="news-ttl">【サンプル】＆kids橋本を開所しました</span>
@@ -513,5 +513,6 @@
 </div>
 
 <script src="js/main.js?v=20260914" defer></script>
+<script src="js/news.js?v=20260915" defer></script>
 </body>
 </html>

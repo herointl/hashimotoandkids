@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-09-15T00:00:00.000Z",
+  "source": "json",
+  "items": [
+    {
+      "id": "sample-homepage",
+      "slug": "homepage-open",
+      "title": "【サンプル】ホームページを公開しました",
+      "date": "2026-08-01",
+      "category": "お知らせ",
+      "categoryClass": "",
+      "description": "こども発達らぼ ＆kids橋本のホームページを公開しました。見学予約・ご利用案内はサイトからご確認いただけます。",
+      "eyecatch": null,
+      "url": "news/homepage-open/",
+      "seoTitle": "",
+      "seoDescription": "こども発達らぼ ＆kids橋本のホームページを公開しました。見学予約・ご利用案内はサイトからご確認いただけます。",
+      "content": "<p>こども発達らぼ ＆kids橋本のホームページを公開しました。</p><p>支援内容やご利用の流れ、見学予約については各ページをご覧ください。ご不明な点はお気軽にお問い合わせください。</p>"
+    },
+    {
+      "id": "sample-vacancy",
+      "slug": "vacancy-guide",
+      "title": "【サンプル】現在の受け入れ状況についてのご案内",
+      "date": "2026-07-15",
+      "category": "空き状況",
+      "categoryClass": "g",
+      "description": "現在の受け入れ状況についてのご案内です。最新の空き状況はお問い合わせください。",
+      "eyecatch": null,
+      "url": "news/vacancy-guide/",
+      "seoTitle": "",
+      "seoDescription": "現在の受け入れ状況についてのご案内です。最新の空き状況はお問い合わせください。",
+      "content": "<p>現在の受け入れ状況についてのご案内です。</p><p>最新の空き状況は、お電話または見学予約フォームからお問い合わせください。</p>"
+    },
+    {
+      "id": "sample-tanabata",
+      "slug": "tanabata",
+      "title": "【サンプル】七夕かざりをつくりました",
+      "date": "2026-07-01",
+      "category": "行事",
+      "categoryClass": "g",
+      "description": "七夕かざりづくりの様子をご紹介します。",
+      "eyecatch": null,
+      "url": "news/tanabata/",
+      "seoTitle": "",
+      "seoDescription": "七夕かざりづくりの様子をご紹介します。",
+      "content": "<p>七夕のかざりをつくりました。</p><p>短冊に願いごとを書いて、みんなで飾りつけを楽しみました。</p>"
+    },
+    {
+      "id": "sample-summer",
+      "slug": "summer-holiday",
+      "title": "【サンプル】夏季休業日についてのご案内",
+      "date": "2026-06-10",
+      "category": "お知らせ",
+      "categoryClass": "",
+      "description": "夏季休業日についてのご案内です。",
+      "eyecatch": null,
+      "url": "news/summer-holiday/",
+      "seoTitle": "",
+      "seoDescription": "夏季休業日についてのご案内です。",
+      "content": "<p>夏季休業日についてのご案内です。</p><p>詳細な日程は、確定次第あらためてお知らせします。</p>"
+    },
+    {
+      "id": "sample-opened",
+      "slug": "opened",
+      "title": "【サンプル】＆kids橋本を開所しました",
+      "date": "2026-05-01",
+      "category": "重要",
+      "categoryClass": "b",
+      "description": "2026年5月、こども発達らぼ ＆kids橋本を開所しました。",
+      "eyecatch": null,
+      "url": "news/opened/",
+      "seoTitle": "",
+      "seoDescription": "2026年5月、こども発達らぼ ＆kids橋本を開所しました。",
+      "content": "<p>2026年5月、こども発達らぼ ＆kids橋本を開所しました。</p><p>橋本駅から徒歩約10分の一軒家で、児童発達支援を行っています。見学は随時受け付けています。</p>"
+    }
+  ]
+}

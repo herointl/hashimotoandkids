@@ -14,13 +14,18 @@
 ├─ program.html        … ③支援内容・プログラム
 ├─ guide.html          … ④ご利用案内
 ├─ access.html         … ⑤アクセス・施設概要
-├─ news.html           … ⑥お知らせ
+├─ news.html           … ⑥お知らせ一覧
+├─ news/<slug>/        … お知らせ詳細（microCMS から生成）
+├─ data/news.json      … お知らせの公開データ（APIキーは含まない）
+├─ scripts/sync-news.mjs … microCMS 同期スクリプト
+├─ .env.example        … APIキーの置き方（実ファイル .env はコミットしない）
 ├─ faq.html            … ⑦よくある質問
 ├─ contact.html        … ⑧お問い合わせ・見学予約
 ├─ privacy.html        … プライバシーポリシー
 ├─ sitemap.html        … サイトマップ
 ├─ css/style.css       … 全ページ共通スタイル
 ├─ js/main.js          … メニュー開閉・スクロール表示アニメーション・お問い合わせ送信
+├─ js/news.js          … 新着情報・お知らせ一覧の読み込み
 ├─ mailer/Code.gs      … お問い合わせメーラー（Google Apps Script。デプロイ手順はファイル冒頭）
 ├─ images/
 │   ├─ favicon.png
@@ -141,7 +146,60 @@
   - **迷惑メール対策**：人には見えない「website」欄（ハニーポット）を置いています。
   - **キャッシュ対策**：`contact.html` の `css/style.css?v=…` `js/main.js?v=…` の値を変えると、古い JS が残った端末でも最新が読み込まれます。
 - **地図**は Google マップの埋め込み（APIキー不要）です。番地まで正確なピンにしたい場合は、Google マップで施設を検索し「共有 → 地図を埋め込む」で得られる URL に差し替えてください。
-- **お知らせ**（`news.html`）は WordPress の「投稿」で運用する想定です。カテゴリーは「お知らせ／空き状況／行事／重要」の4つを想定し、トップページには最新3件を自動表示します。
+- **お知らせ**（`news.html`）は **microCMS** で管理します。公開済み記事は GitHub Actions が `data/news.json` と `news/<slug>/` に書き出します。カテゴリーは「お知らせ／空き状況／行事／イベント／活動報告／重要／重要なお知らせ」を想定し、トップページには最新3件を表示します。セットアップ手順は「5. お知らせ（microCMS）」を参照してください。
 - **地域SEO**：各ページの title・description・本文に「相模原市緑区橋本」「橋本駅」を自然な形で配置しています。
 - **アクセシビリティ**：キーボード操作、スキップリンク、`prefers-reduced-motion`（アニメーションを減らす設定）に対応しています。
 - **ブラウザ確認**：CSSを修正しても表示が変わらない場合は、キャッシュをクリア（Ctrl + F5）してください。
+
+---
+
+## 5. お知らせ（microCMS）
+
+このサイトは GitHub Pages の静的 HTML です。ブラウザ用 JavaScript に API キーを書くと誰でも見えてしまうため、**microCMS のキーは GitHub Secrets（または手元の `.env`）だけに置き**、公開サイトは生成済みの JSON / HTML を読みます。
+
+### microCMS で作る API
+
+1. サービスを作成する
+2. API を **リスト形式** で作成し、エンドポイント名を `news` にする
+3. フィールド:
+
+| フィールドID | 種類 | 必須 | 内容 |
+|---|---|---|---|
+| `title` | テキストフィールド | 必須 | 記事タイトル |
+| `slug` | テキストフィールド | 必須 | URL 用（半角英数字とハイフン。例: `summer-holiday`） |
+| `publishedDate` | 日付 | 推奨 | サイトに出す公開日。未設定時は microCMS の公開日時 |
+| `category` | セレクト | 必須 | `お知らせ` / `空き状況` / `行事` / `イベント` / `活動報告` / `重要` / `重要なお知らせ` |
+| `eyecatch` | 画像 | 任意 | アイキャッチ |
+| `description` | テキストエリア | 推奨 | 一覧用概要・meta description の既定値 |
+| `content` | リッチエディタ | 必須 | 本文 |
+| `seoTitle` | テキストフィールド | 任意 | title タグ上書き |
+| `seoDescription` | テキストエリア | 任意 | meta description / OGP 上書き |
+
+公開／非公開は **コンテンツの公開状態（公開・下書き）** を使います。下書きは API に出ないためサイトにも出ません。
+
+4. API キーは **GET のみ** 許可したキーを発行する（管理画面の API キー）
+
+### GitHub に設定する値
+
+リポジトリ Settings → Secrets and variables → Actions:
+
+- `MICROCMS_SERVICE_DOMAIN` … `https://xxxx.microcms.io` の `xxxx`
+- `MICROCMS_API_KEY` … GET 用 API キー
+
+**これらをソースコードや `data/news.json` に書かないでください。`.env` もコミットしません。**
+
+### 記事の公開の流れ
+
+1. microCMS で記事を書いて「公開」する
+2. GitHub Actions「Sync news from microCMS」が（1時間ごと、または手動実行、または Webhook）で同期する
+3. `data/news.json` と `news/<slug>/index.html` が更新され、GitHub Pages に反映される
+
+手元で試す場合:
+
+```bash
+cp .env.example .env
+# .env を編集
+node scripts/sync-news.mjs
+```
+
+Webhook を使う場合は、microCMS の Webhook から GitHub の `repository_dispatch`（type: `microcms`）を呼びます。未設定でも毎時の定期実行で追いつきます。
