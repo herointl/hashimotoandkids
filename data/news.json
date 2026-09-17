@@ -1,7 +1,26 @@
 {
-  "generatedAt": "2026-09-17T06:12:23.098Z",
+  "generatedAt": "2026-09-17T08:41:15.977Z",
   "source": "microcms",
   "items": [
+    {
+      "id": "xj-afabndllx",
+      "slug": "site-renewal",
+      "title": "空き状況のお知らせ",
+      "date": "2026-09-16",
+      "category": "空き状況",
+      "categoryClass": "g",
+      "description": "こども発達らぼ＆kids橋本の、9月・10月の空き状況のお知らせです！\n気になることがございましたら、お気軽にお問合せください。",
+      "eyecatch": {
+        "url": "https://images.microcms-assets.io/assets/2664c68ef6844ec0af73cce04c77abd7/b21d1086dbf0410fb481df96bbd49d46/IMG_2618.PNG",
+        "alt": "",
+        "width": 1179,
+        "height": 833
+      },
+      "url": "news/site-renewal/",
+      "seoTitle": "こども発達らぼ＆kids橋本　空き状況のお知らせ",
+      "seoDescription": "こども発達らぼ＆kids橋本の9月・10月は空きがございます。\n送迎も行っていますので、気になることがございましたら、お電話、公式ライン、メールにてお問い合わせください！",
+      "content": "<p>現在＆kids橋本の9月・10月の<strong>空き状況のお知らせ</strong>です。</p><p>今現在、9月・10月は各営業日で、3～4名ほどの空きがございます。</p><p>月ごとに様々なイベントを予定しており、色々な体験を通して、お子さま一人一人の心身の成長に繋がっていけたらと思っています。</p><p><strong>送迎も行っております</strong>ので、ご利用に関しまして気になることがありましたら、お気軽にお問い合わせください。</p><p></p><p>こども発達らぼ＆ｋｉｄｓ橋本</p><p>【住所】相模原市緑区橋本5-19-3</p><p>【電話番号】042-816-3228</p><p>【メール】<a href=\"mailto:hashimoto@andkids.jp\">hashimoto@andkids.jp</a></p><p>【公式ライン】<a href=\"https://lin.ee/ZXQzQXr\">https://lin.ee/ZXQzQXr</a></p>"
+    },
     {
       "id": "rjtitlarqdff",
       "slug": "site-renewal",
