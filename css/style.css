@@ -172,8 +172,15 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   position:absolute;inset:0;
   width:100%;height:100%;
   object-fit:cover;
-  object-position:center 22%;
+  object-position:center 28%;
   display:block;
+  pointer-events:none;
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-photo{display:none;}
+  .hero-visual{
+    background:#fff url("../images/photos/hero-fv.jpg") center 28% / cover no-repeat;
+  }
 }
 .hero-catch{
   position:absolute;z-index:2;
