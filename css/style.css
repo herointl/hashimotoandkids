@@ -260,8 +260,11 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
 .cph{margin:0;overflow:hidden;background:var(--o-100);box-shadow:0 14px 32px rgba(178,108,42,.16);}
 .cph img{width:100%;height:100%;object-fit:cover;display:block;}
 .cph1{grid-column:1/4;aspect-ratio:1;border-radius:50%;transform:translateY(14px);}
+.cph1 img{object-position:center 42%;}
 .cph2{grid-column:4/7;aspect-ratio:4/5;border-radius:40px;transform:translateY(-18px);}
+.cph2 img{object-position:center 28%;}
 .cph3{grid-column:7/10;aspect-ratio:4/5;border-radius:40px;transform:translateY(20px);}
+.cph3 img{object-position:center 30%;}
 .cph4{grid-column:10/13;aspect-ratio:1;border-radius:50%;transform:translateY(-10px);}
 
 .cdot{position:absolute;border-radius:50%;z-index:2;animation:floatY 5s ease-in-out infinite;}
@@ -740,8 +743,11 @@ body.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-4
   .hero-band{padding:40px 0 56px;}
   .hero-collage{gap:10px;margin-inline:-20px;}
   .cph1{grid-column:1/8;grid-row:1;aspect-ratio:4/3;border-radius:0 28px 28px 0;transform:none;}
+  .cph1 img{object-position:center 48%;}
   .cph2{grid-column:8/13;grid-row:1/3;aspect-ratio:auto;height:100%;border-radius:28px 0 0 28px;transform:none;}
+  .cph2 img{object-position:center 26%;}
   .cph3{grid-column:1/6;grid-row:2;aspect-ratio:1;border-radius:50%;margin-left:14px;transform:none;}
+  .cph3 img{object-position:center 32%;}
   .cph4{display:none;}
   .collage-ch{width:42%;right:-1%;bottom:-26%;}
   .cpolka{width:78px;height:78px;left:2%;bottom:-4%;}
